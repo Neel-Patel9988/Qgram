@@ -9,3 +9,13 @@ The API has been Secured by Authentication. Qgram API users will also have the a
 
 # Backend
 
+We will be using the Basic CRUD operations which are possible by accessing the API.
+
+GET : method is for retrieving information. Our app simply returns the results of some simple data.
+
+POST : allow our clients to remotely add/create new resources.
+
+PUT : allows the user to update their quote data.
+
+DELETE : enables the user to delete their quotes.
+
