@@ -19,3 +19,9 @@ PUT : allows the user to update their quote data.
 
 DELETE : enables the user to delete their quotes.
 
+
+# Security
+
+Authentication is ascertaining the identity of an entity. For Qgram we have implemented a simple but secure authentication System. A user simply provides a username and password directly in the HTTP header request: no need to handshakes or challenge/response.
+
+
