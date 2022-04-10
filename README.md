@@ -25,3 +25,7 @@ DELETE : enables the user to delete their quotes.
 Authentication is ascertaining the identity of an entity. For Qgram we have implemented a simple but secure authentication System. A user simply provides a username and password directly in the HTTP header request: no need to handshakes or challenge/response.
 
 
+Code example :
+if request.authorization and request.authorization.username == 'username' and request.authorization.password == 'password'
+
+
