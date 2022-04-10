@@ -29,3 +29,6 @@ Code example :
 if request.authorization and request.authorization.username == 'username' and request.authorization.password == 'password'
 
 
+where login id is - username
+
+and password is - password
