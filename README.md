@@ -41,7 +41,10 @@ Qgram is an api platform where every person can visit and search for a quote acc
 
 # System Architecture
 
-Screenshot (10).png
+![image](https://user-images.githubusercontent.com/102377195/162663991-f9a6677a-78ab-436b-a71d-5b9fc730a0e2.png)
+
+
+
 
 # Backend
 
