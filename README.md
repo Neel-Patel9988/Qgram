@@ -105,14 +105,14 @@ If it is successful we can access our API and run operations
 
 # CRUD Operations in Detail
 
-**Running Locally
+**Running Locally**
 
 To run this repository on your local machine download the source code and extract its contents or clone the repository.
 
 
 Explaining few of the CRUD Operation:
 
-GET Operation :
+**GET Operation :**
 
 Get method to view all quotes
 ```
@@ -191,6 +191,64 @@ return '{"status":"Database Connection Close Error","message":"' + str(e) + '"}'
 Returning records in the json format
 ```
 return records_json, 200, {'Content-Type': 'text/json; charset=utf-8'}
+
+```
+
+This will return all the records available in our database.
+
+
+**More of the GET logics/operation used :**
+
+To get list of Quotes by Author name :
+```
+@app.route('/quote_by_authors/<author_name>/', methods=['GET'])
+def get_quote_by_author(author_name=''):
+  author_name=author_name.strip()
+  try:
+    if author_name =='':
+        return '{"status":"No Input Entered","message":""}', 400, {
+            'Content-Type': 'text/json; charset=utf-8'}
+ except Exception as e:
+  return '{"status":"Database Connection Error","message":"' + str(e) + '"}', 500, {
+                'Content-Type': 'text/json; charset=utf-8'}
+
+```
+
+
+**POST OPERATION**
+
+To Post a quote in the Database :
+
+```
+@app.route('/update_quote_by_id/', methods=['POST'])
+def update_quote_by_id():
+  if request.json['username']=='supervisor' and request.json['password']=='supervisor351':
+      if request.json["quote_id"] is None or not request.json["quote_id"] and request.json["quote"] is None or not request.json["quote"]:
+          return '{"status":"Required Parameter Missing","message":""}', 400, {
+              'Content-Type': 'text/json; charset=utf-8'}
+
+```
+
+we will connect to the database similarly as we did in the GET operation
+This will 
+
+
+**PUT OPERATION** 
+
+To Update any existing entry :
+
+```
+@app.route('/update_quote_by_id/<id>/<t_lang>', methods=['GET'])
+def translate(id,t_lang):
+if len(records) == 0:
+            return '{"status":"No Records Found","message":""}', 404, {
+                'Content-Type': 'text/json; charset=utf-8'}
+        response = requests.get("https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl="+t_lang+"&dt=t&q='"+records[0][0]+"'")
+        resp_json=response.json()
+        return str('{"Quote":"'+records[0][0]+'","language":"'+t_lang+'","translation":"'+resp_json[0][0][0]+'"}'), 200, {'Content-Type': 'text/json; charset=utf-8'}
+    except BaseException as be:
+        return '{"status":"Some Error Occured","message":"' + str(be) + '"}', 500, {
+            'Content-Type': 'text/json; charset=utf-8'}
 
 ```
 
