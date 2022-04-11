@@ -13,9 +13,10 @@ The API has been Secured by Authentication. Qgram API users will also have the a
 - About
 - System Architecture
 - Backend
+  - Cloud
   - CRUD Operations
     - CRUD Operations in Detail
-  - Cloud App
+  - Security
  - Desclaimer
  
  
@@ -51,7 +52,7 @@ The front-end serves as a seamless user interface for many devices such as smart
 Most of the CRUD operations are performed in terminals and browser. One can also make use of Postman for these API's operation.
 
 
-**CRUD OPERATION
+**CRUD OPERATION**
 
 We will be using the Basic CRUD operations which are possible by accessing the API. One can access these operations via adding ```api/all_author``` and ```api/all_records``` at the end of the web address following the REST standards.
 
@@ -59,23 +60,14 @@ where one can get whole records of data or even a specific result such as,
 
 ```{"quote" = "One life, live it!"} ```
 
-A basic overview of CRUD operations 
-
-GET : method is for retrieving information. Our app simply returns the results of some simple data.
-
-POST : allow our clients to remotely add/create new resources.
-
-PUT : allows the user to update their quote data.
-
-DELETE : enables the user to delete their quotes.
 
 
-**Cloud
+# Cloud
 
-Our current backend is deployed on the google cloude. [Click Here](https://github.com/shivanshkaushik/QGram) for details on API and updates.
+Our current backend is deployed on the google cloude. [Click Here](https://github.com/shivanshkaushik/QGram) for details on the API and updates.
 
 
-**Deploying Qgram to Cloud
+**Deploying Qgram to Cloud**
 
 First one have to create a Virtual instance, for which we will need an Google Cloude with proper configurations. 
 
@@ -83,6 +75,8 @@ First one have to create a Virtual instance, for which we will need an Google Cl
 For a google cloud service,
 
 Sign in/up [here] (https://cloud.google.com).
+
+![image](https://user-images.githubusercontent.com/102377195/162682447-4c27ea4b-b8ea-49b9-9308-bdbd1132c5b8.png)
 
 
 After Creating an instance, Connect a terminal to it using Linux operating system. SSH (Secure Shell) Protocol will be used here. To do this one will need  public and private keys. We will put the Public Key in the GCP instance. And we will keep the private key on our own PC to connect to the instance in GCP. 
@@ -104,6 +98,18 @@ To verify that the services are running , we will load the external IP with port
 If it is successful we can access our API and run operations
 
 # CRUD Operations in Detail
+
+A basic overview of CRUD operations 
+
+GET : method is for retrieving information. Our app simply returns the results of some simple data.
+
+POST : allow our clients to remotely add/create new resources.
+
+PUT : allows the user to update their quote data.
+
+DELETE : enables the user to delete their quotes.
+
+
 
 **Running Locally**
 
@@ -199,6 +205,34 @@ This will return all the records available in our database.
 
 **More of the GET logics/operation used :**
 
+To Get the list of all the Author :
+```
+@app.route('/all_authors/', methods=['GET'])
+def get_authors():
+
+
+```
+
+
+```
+records = cursor.fetchall()
+    if len(records) == 0:
+        return '{"status":"No Records Found","message":""}', 404, {
+            'Content-Type': 'text/json; charset=utf-8'}
+    records_json=''
+    for record in records:
+        records_json = records_json + '{"Author":"' + str(record[0]) + '"}'
+        if record != records[-1]:
+            records_json = records_json + ','
+            records_json = records_json + "]"
+  except BaseException as be:
+    return '{"status":"Some Error Occured","message":"' + str(be) + '"}', 500, {
+        'Content-Type': 'text/json; charset=utf-8'}
+
+```
+
+
+
 To get list of Quotes by Author name :
 ```
 @app.route('/quote_by_authors/<author_name>/', methods=['GET'])
@@ -266,3 +300,9 @@ if request.authorization and request.authorization.username == 'username' and re
 where login id is - username
 
 and password is - password
+
+
+# Disclaimer
+
+
+This project is part of a cloud computing coursework taught by Dr. Sukhpal Singh Gill at the Queen Mary University of London Electrical Engineering & Computer Science Department to create a prototype of a cloud application.
