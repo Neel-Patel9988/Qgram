@@ -14,9 +14,8 @@ The API has been Secured by Authentication. Qgram API users will also have the a
 - System Architecture
 - Backend
   - CRUD Operations
-    - Operation in Details
+    - CRUD Operations in Detail
   - Cloud App
- - Front-end
  - Desclaimer
  
  
@@ -71,7 +70,7 @@ PUT : allows the user to update their quote data.
 DELETE : enables the user to delete their quotes.
 
 
-# Cloud
+**Cloud
 
 Our current backend is deployed on the google cloude. [Click Here](https://github.com/shivanshkaushik/QGram) for details on API and updates.
 
@@ -88,7 +87,115 @@ Sign in/up [here] (https://cloud.google.com).
 
 After Creating an instance, Connect a terminal to it using Linux operating system. SSH (Secure Shell) Protocol will be used here. To do this one will need  public and private keys. We will put the Public Key in the GCP instance. And we will keep the private key on our own PC to connect to the instance in GCP. 
 
-In the next step we will  
+After successfully connecting the cloud, in the next step can we can deploy our application manually or get the respiratory from github. Our main application will be run and in the codes a specific Port is assigned to it.
+
+In our case, we require port 5000, as we have assigned our API to it.
+
+```app.run(host='0.0.0.0', port = 5000)```
+
+We can run the application on the port, using the command :
+
+```python3 (APP_NAME).py```
+
+To verify that the services are running , we will load the external IP with port :
+
+```http://34.89.29.79:5000/```
+
+If it is successful we can access our API and run operations
+
+# CRUD Operations in Detail
+
+**Running Locally
+
+To run this repository on your local machine download the source code and extract its contents or clone the repository.
+
+
+Explaining few of the CRUD Operation:
+
+GET Operation :
+
+Get method to view all quotes
+```
+@app.route('/', methods=['GET'])
+def get_all_records():
+
+```
+
+Connect to the database
+```
+cnx = mysql.connector.connect(user='supervisor', password='supervisor351',
+                                      host='35.246.14.186',
+                                      database='QGram-db')
+
+```
+
+Error returned if database fails to connect
+```
+return '{"status":"Database Connection Error","message":"'+str(e)+'"}', 500, {'Content-Type': 'text/json; charset=utf-8'}
+    query = "SELECT * FROM quotes_table"
+
+```
+
+execute select query to retrieve all quotes from cloud database
+```
+cursor.execute(query)
+    except Exception as e:
+
+```
+
+Fetching records from the cursor objects
+```
+records = cursor.fetchall()
+
+```
+
+return error if no quotes found
+```
+if len(records)==0:
+        return '{"status":"No Records Found","message":""}', 404, {
+            'Content-Type': 'text/json; charset=utf-8'}
+    records_json="["
+    for record in records:
+        quote=str(record[1])
+
+```
+
+Building output json with all records
+```
+records_json=records_json+'{"Quote_id":"'+str(record[0])+'","Quote":"'+quote+'","Authors":"'+str(record[2])+'","Category":"'+str(record[3])+'"}'
+        if record!=records[-1]:
+            records_json=records_json+','
+    records_json = records_json + "]"
+  except BaseException as be:
+    return '{"status":"Some Error Occured","message":"' + str(be) + '"}', 500, {
+          'Content-Type': 'text/json; charset=utf-8'}
+
+```
+
+Closing db connection
+```
+cnx.close()
+        except Exception as e:
+
+
+```
+
+Returning error if closing connection fails
+```
+return '{"status":"Database Connection Close Error","message":"' + str(e) + '"}', 500, {
+                'Content-Type': 'text/json; charset=utf-8'}
+ 
+
+```
+
+Returning records in the json format
+```
+return records_json, 200, {'Content-Type': 'text/json; charset=utf-8'}
+
+```
+
+
+
 # Security
 
 Authentication is ascertaining the identity of an entity. For Qgram we have implemented a simple but secure authentication System. A user simply provides a username and password directly in the HTTP header request: no need to handshakes or challenge/response.
