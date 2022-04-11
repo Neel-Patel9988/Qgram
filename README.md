@@ -4,7 +4,38 @@
 An App where each person can get a quote for every mood or even any random quote. As the craze of social media increasing, every every person seeks for a perfect quote for themselfs, rather it be for an instagram post or a tweet.
 Qgram is here for the rescue !!!
 
-The API has been Secured by Authentication. Qgram API users will also have the abiity to create, read, update and delete quotes in database.
+The API has been Secured by Authentication. Qgram API users will also have the ability to create, read and delete quotes in database.
+
+
+# Table of Content
+
+
+- About
+- System Architecture
+- Backend
+  - CRUD Operations
+    - Operation in Details
+  - Cloud App
+ - Front-end
+ - Desclaimer
+ 
+ 
+# About
+**Introduction of cloud application**
+
+
+A cloude application is internet-based software that processes or stores data online
+
+There are three main kinds of application:
+
+1. Software as a service
+2. Platform as a service
+3. Infrastructure as a service
+
+
+**About Qgram**
+
+
 
 
 # Backend
