@@ -39,6 +39,10 @@ There are three main kinds of application:
 Qgram is an api platform where every person can visit and search for a quote according to their moods or feelings. One can also search for their faviorite author. Registered users can also creat their own quotes and can also delete as well if they feel like it.
 
 
+# System Architecture
+
+
+
 # Backend
 
 We will be using the Basic CRUD operations which are possible by accessing the API.
